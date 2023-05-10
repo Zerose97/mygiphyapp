@@ -1,0 +1,69 @@
+.head-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: black;
+    p {
+        font-size: 4rem;
+        color: white;
+        font-style: italic;
+        margin: 2rem 0px;
+    }
+    input {
+        font-size: 2rem;
+        border-radius: 24px;
+        padding: 20px 40px;
+        color: white;
+        background: transparent;
+        border: 4px solid white;
+        margin-bottom: 2rem;
+        font-style: italic;
+    }
+    input::placeholder {
+        color: white;
+        font-style: italic;
+    }
+}
+
+.content-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 0.9fr;
+    grid-gap: 30px 30px;
+    padding: 30px;
+    .item {
+        border-radius: 10px;
+        overflow: hidden;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+    }
+}
+
+.modal-body {
+    ul {
+        list-style: none;
+        color: black;
+        font-size: 1.5rem;
+        li:first-child {
+            font-weight: bold;
+            font-size: 1.6rem;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+    }
+}
+
+.go-top {
+    position: fixed;
+    right: 2rem;
+    bottom: 2vw;
+    font-size: 5rem;
+    color: darkslategray;
+    cursor: pointer;
+}

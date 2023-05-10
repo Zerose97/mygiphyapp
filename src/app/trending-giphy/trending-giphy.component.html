@@ -1,0 +1,53 @@
+<section class="head-container" id="top">
+    <p>Your Giphy (˵ •̀ ᴗ - ˵ ) ✧</p>
+    <input type="text" (keyup)="onTyping($event)" placeholder="Search something...."/>
+</section>
+<section class="content-container">
+    <ng-container *ngFor="let gifItem of allTrendingGiphy$ | async">
+        <div class="item">
+            <img width="250" [src]="gifItem.properties.preGif" (click)="openModal(gifItem, content)"/>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="(allTrendingGiphy$ | async) as allTrendingGiphy">
+        <div *ngIf="isShowLoadMore; else more">
+            <div> Loading more... </div>
+        </div>
+        <ng-template #more> <ng-container *ngIf="allTrendingGiphy && allTrendingGiphy.length < totalRecords">
+                <div class="infinite-scroll-zone"
+                     inViewport
+                     [inViewportOptions]="{ threshold: [0] }"
+                     (inViewportAction)="loadMoreList($event)">&#160;</div>
+            </ng-container>
+        </ng-template>
+    </ng-container>
+</section>
+
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Gif Detail</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body d-flex flex-row">
+        <div>
+            <img [src]="selectedItem?.properties?.ogGif"/>
+        </div>
+        <div>
+            <ul>
+                <li>{{selectedItem?.title}}</li>
+                <li *ngIf="selectedItem?.user?.username"><i class="bi bi-person me-1"></i>{{selectedItem?.user?.username}}</li>
+                <li><i class="bi bi-exclamation-circle me-1"></i>{{selectedItem?.rating}}</li>
+                <li><i class="bi bi-aspect-ratio me-1"></i>{{selectedItem?.properties?.width}} x {{selectedItem?.properties?.height}}</li>
+                <li><i class="bi bi-sd-card me-1"></i>{{selectedItem?.properties?.size}}</li>
+                <li *ngIf="!copied" (click)="copyLink()"><a href="javascript:void(0)">Copy</a></li>
+                <li *ngIf="copied" style="font-weight: bold;">Copied</li>
+            </ul>
+        </div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+	</div>
+</ng-template>
+
+<div class="go-top">
+   <i class="bi bi-arrow-up-circle-fill" (click)="goTop()"></i>
+</div>
